@@ -19,7 +19,7 @@ class ListNode {
  */
 
 function LinkedList() {
-  this.head = {};
+  this.head = null;
 }
 
 function Node(value) {
@@ -27,14 +27,7 @@ function Node(value) {
   this.next = null;
 }
 
-LinkedList.prototype.add = (value) => {
-  let node = new Node(value);
-  let lastNode = this.lastNode();
-
-  lastNode.next = node;
-};
-
-LinkedList.prototype.remove = (value) => {
+LinkedList.prototype.remove = function (value) {
   let node = this.head;
   let removedNode = null;
 
@@ -50,7 +43,7 @@ LinkedList.prototype.remove = (value) => {
   return removedNode;
 };
 
-LinkedList.prototype.size = (value) => {
+LinkedList.prototype.size = function (value) {
   let node = this.head;
   let size = 0;
 
@@ -62,7 +55,7 @@ LinkedList.prototype.size = (value) => {
   return size;
 };
 
-LinkedList.prototype.lastNode = (value) => {
+LinkedList.prototype.lastNode = function () {
   let node = this.head;
 
   while (node.next !== null) {
@@ -70,6 +63,20 @@ LinkedList.prototype.lastNode = (value) => {
   }
 
   return node;
+};
+
+LinkedList.prototype.add = function (value) {
+  let node = new Node(value);
+  if (this.head === null) {
+    this.head = node;
+    return;
+  }
+  let lastNode = this.head;
+  while (lastNode.next !== null) {
+    lastNode = lastNode.next;
+  }
+
+  lastNode.next = node;
 };
 
 /* removeDups: write code to remove duplicates from an unsorted linked list.
@@ -219,7 +226,28 @@ const sumLists = (num1, num2) => {
 
 /* palindrome: implement a function to check if a linked list is a palindrome. */
 
-const palindrome = () => {};
+const palindrome = (head) => {
+  // iterate through linked list
+  // have 2 storage arrays
+  // store into each array, one that is reversed
+  // compare the two arrays
+  // if both arrays match, then return true
+
+  let array1 = [];
+  let array2 = [];
+  let node = head;
+
+  while (node.next !== null) {
+    array1.push(node.value);
+    array2.unshift(node.value);
+    node = node.next;
+  }
+
+  for (let i = 0; i < array1.length; i++) {
+    if (array1 !== array2) return false;
+  }
+  return true;
+};
 
 /* intersection: given two singly linked lists, determine if the two lists intersect. Return
  * the intersecting node. Note that the intersection is deinef based on reference, not value.
@@ -227,10 +255,72 @@ const palindrome = () => {};
  * node of the second linked list, then they are intersecting.
  */
 
-const intersection = () => {};
+const intersection = (head1, head2) => {
+  // iterate through one of the linked lists
+  // nested loop
+  // compare objects
+  // return intersecting node
+
+  let node1 = head1;
+  let node2 = head2;
+
+  while (node1.next !== null) {
+    while (node2.next !== null) {
+      if (node1 === node2) return node;
+      node2 = node2.next
+    }
+    node1 = node1.next;
+  }
+  return null;
+};
 
 /* loopDetection: given a linked list which might contain a loop. Implement and algo that
  * returns the node at the beginning of the loop (if one exists).
  */
 
-const loopDetection = () => {};
+const loopDetection = (head) => {
+  // Find a loop by having a runner
+  // if runner === current node, then there is a loop
+  // either exit loop with matching runner or reaching the end of the linked list
+  // once the loop is confirmed, store it in an array
+  // iterate through the linked list again to check the values against the store
+  let node = head.next.next;
+  let runner = head;
+  let store = [];
+
+  while (node.next !== null) {
+    if (node === runner) {
+      let firstLoop = node;
+      while (node.next !== firstLoop) {
+        store.push(node);
+        node = node.next;
+      }
+      break;
+    }
+    node = node.next;
+    runner = runner.next.next;
+  }
+  node = head;
+  if (store.length > 0) {
+    while (node.next !== null) {
+      for (const loop of store) {
+        if (loop === node) return node;
+      }
+      node = node.next;
+    }
+  }
+  return null;
+};
+
+// let test = new LinkedList();
+// test.add(1);
+// test.add(2);
+// test.add(3);
+// test.add(4);
+// let node = test.head;
+// while (node.next !== null) {
+//   node = node.next;
+// }
+// let node2 = test.head.next;
+// node.next = node2;
+// console.log(loopDetection(test.head));
