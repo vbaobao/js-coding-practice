@@ -158,40 +158,7 @@ class myQueue {
  * stack supports the following ops: push, pop, peek, and isEmpty.
  */
 
-class sortStack {
-  constructor() {
-    this.stack = new Stack();
-    this.top = null;
-  }
-
-  push(value) {
-    let tempStack = new Stack();
-    let stackVal = this.stack.pop();
-    while (this.stack.size()) {
-      if (stackVal > value) {
-        tempStack.push(value);
-      } else {
-        tempStack.push(stackVal);
-      }
-      stackVal = this.stack.pop();
-    }
-    while (tempStack.size()) {
-      this.stack.push(tempStack.pop());
-    }
-  }
-
-  pop() {
-    this.stack.pop();
-  }
-
-  peek() {
-    return this.top;
-  }
-
-  isEmpty() {
-    return this.stack.size > 0;
-  }
-}
+const sortStack = (stack) => {};
 
 /* animalShelter: an animal shelter, which only holds dogs and cats,
  * operates on "first in, first out" basis. Peple must either adopt
