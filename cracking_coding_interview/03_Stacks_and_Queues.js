@@ -158,7 +158,54 @@ class myQueue {
  * stack supports the following ops: push, pop, peek, and isEmpty.
  */
 
-const sortStack = (stack) => {};
+const sortStack = (stack1) => {
+  let stack2 = new Stack();
+  // while s1 is not empty
+  // push s1.pop() to s2
+  // while s1.pop() < s2.pop() push to s2
+  // while s2 is not empty
+  // compare to temp
+  // if temp > s2 push to s1
+  // else push temp to s1, then push s2 to s1
+  let temp, s1, s2;
+
+  stack2.push(stack1.pop());
+  while (true) {
+    s1 = stack1.pop();
+    s2 = stack2.pop();
+    while (s1 <= s2) {
+      stack2.push(s2);
+      s2 = s1;
+      if (!stack1.isEmpty()) {
+        s1 = stack1.pop();
+      } else {
+        stack2.push(s2);
+        s1 = null;
+        break;
+      }
+    }
+    temp = s1;
+    if (stack1.isEmpty()) {
+      while (!stack2.isEmpty()) {
+        stack1.push(stack2.pop());
+      }
+      return stack1;
+    } else {
+      while (!stack2.isEmpty()) {
+        s2 = stack2.pop();
+        if (temp !== null && temp > s2) {
+          stack1.push(s2);
+          s2 = stack2.pop();
+        } else {
+          stack1.push(temp);
+          stack1.push(s2);
+          temp = null;
+        }
+      }
+      if (stack2.isEmpty() && temp !== null) stack1.push(temp);
+    }
+  }
+};
 
 /* animalShelter: an animal shelter, which only holds dogs and cats,
  * operates on "first in, first out" basis. Peple must either adopt
