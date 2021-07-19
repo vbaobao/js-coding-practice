@@ -218,13 +218,42 @@ const sortStack = (stack1) => {
  */
 
 class animalShelter {
-  constructor() {}
+  constructor() {
+    this.queue = [];
+    this.cats = [];
+    this.dogs = [];
+  }
 
-  enqueue() {}
+  enqueue(value, type) {
+    this.queue.unshift([value, type]);
+    type === 'dog' ? this.dogs.unshift(value) : this.cats.unshift(value);
+  }
 
-  dequeueAny() {}
+  dequeueAny() {
+    let temp = this.queue.pop();
+    temp[1] === 'dog' ? this.dogs.pop() : this.cats.pop();
+    return temp[0];
+  }
 
-  dequeueDog() {}
+  dequeueDog() {
+    this.dogs.pop();
+    for (let i = 0; i < this.queue.length; i++) {
+      if (this.queue[i][1] === 'dog') {
+        this.queue = this.queue.slice(0, i).concat(this.queue.slice(i + 1));
+        break;
+      }
+    }
+    return this.queue;
+  }
 
-  dequeueCat() {}
+  dequeueCat() {
+    this.cats.pop();
+    for (let i = 0; i < this.queue.length; i++) {
+      if (this.queue[i][1] === 'cat') {
+        this.queue = this.queue.slice(0, i).concat(this.queue.slice(i + 1));
+        break;
+      }
+    }
+    return this.queue;
+  }
 }
