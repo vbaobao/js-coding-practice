@@ -3,11 +3,40 @@ const assert = (expected, actual, name) => {
   return console.log(`FAILED test: ${name}\nExpected ${expected}, but got ${actual} instead.`);
 };
 
+function Graph() {
+  this.graph = {}
+}
+
+Graph.prototype.get = function (value) {
+  return this.graph[value];
+};
+Graph.prototype.set = function (value, verticies) {
+  this.graph[value] = [...this.graph[value], ...verticies];
+};
+
 /* routeBetweenNodes: given a directed graph and two nodes (S & E),
  * design an algorithm to find out whether there is route from S to E.
  */
 
-const routeBetweenNodes = () => {};
+const routeBetweenNodes = (graph, s, e) => {
+  // Iterate through adjacents of node s
+  // recursively iterate through adjacencies
+  // base case: if the same node shows up again
+  // base case: no adjacent nodes
+  // otherwise, run recurse
+  let routed = false;
+
+  const recurse = (node1, node2) => {
+    if (node1 === node2) return routed = true;
+    if (!graph[node1].length) return;
+    for (const edge of graph[node1]) {
+      if (edge === node2) return true;
+      recurse(edge, node2);
+    }
+  };
+
+  return recurse(s, e)
+};
 
 /* minimalTree: given a sorted (increasing order) array with unique
  * integer elements, write an algorithm to create a binary search
