@@ -3,6 +3,36 @@ const assert = (expected, actual, name) => {
   return console.log(`FAILED test: ${name}\nExpected ${expected}, but got ${actual} instead.`);
 };
 
+function Node(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+
+function BinarySearchTree(value) {
+  this.root = new Node(value);
+};
+
+BinarySearchTree.prototype.insert = function(value) {
+  this.insertNode(value, this.root);
+};
+
+BinarySearchTree.prototype.insertNode = (value, node) => {
+  if (node.value <= value) {
+    if (node.right !== null) {
+      insertNode(value, node.right);
+    } else {
+      node.right = new Node(value);
+    }
+  } else {
+    if (node.left !== null) {
+      insertNode(value, node.left);
+    } else {
+      node.left = new Node(value);
+    }
+  }
+};
+
 function Graph() {
   this.graph = {}
 }
@@ -43,7 +73,19 @@ const routeBetweenNodes = (graph, s, e) => {
  * tree with minimal height.
  */
 
-const minimalTree = () => {};
+const minimalTree = (array) => {
+  // iterate through the array
+  // split array into 2
+  // recursively insert into the bianry tree with sliced
+  let mid = Math.ceil(array.length / 2);
+  let tree = new BinarySearchTree(array[mid]);
+  for (let i = 0; i < mid; i++) {
+    tree.insert(array[i]);
+  }
+  for (let i = mid; i < array.length; i++) {
+    tree.insert(array[i]);
+  }
+};
 
 /* listOfDepths: given a binary tree, design an algorithm which
  * creates a linked list of all the nodes at each depth. (e.g.
