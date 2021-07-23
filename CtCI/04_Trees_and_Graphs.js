@@ -44,6 +44,67 @@ Graph.prototype.set = function (value, verticies) {
   this.graph[value] = [...this.graph[value], ...verticies];
 };
 
+function LinkedList() {
+  this.head = null;
+}
+
+function Node(value) {
+  this.value = value;
+  this.next = null;
+}
+
+LinkedList.prototype.remove = function (value) {
+  let node = this.head;
+  let removedNode = null;
+
+  while (node.next !== null) {
+    if (node.next.value === value) {
+      removedNode = node.next;
+      node.next = node.next.next;
+      break;
+    }
+    node = node.next;
+  }
+
+  return removedNode;
+};
+
+LinkedList.prototype.size = function (value) {
+  let node = this.head;
+  let size = 0;
+
+  while (node.next !== null) {
+    size++;
+    node = node.next;
+  }
+
+  return size;
+};
+
+LinkedList.prototype.lastNode = function () {
+  let node = this.head;
+
+  while (node.next !== null) {
+    node = node.next;
+  }
+
+  return node;
+};
+
+LinkedList.prototype.add = function (value) {
+  let node = new Node(value);
+  if (this.head === null) {
+    this.head = node;
+    return;
+  }
+  let lastNode = this.head;
+  while (lastNode.next !== null) {
+    lastNode = lastNode.next;
+  }
+
+  lastNode.next = node;
+};
+
 /* routeBetweenNodes: given a directed graph and two nodes (S & E),
  * design an algorithm to find out whether there is route from S to E.
  */
@@ -92,13 +153,35 @@ const minimalTree = (array) => {
  * a depth of D has D linked lists.)
  */
 
-const listOfDepths = () => {};
+const listOfDepths = (tree) => {
+  // define the linked list
+  // recur breadth first through the tree, input is the current linked list node, and tree node
+  // add node to linked list with the value of the current depth
+  // call recur function with the head and storeage linked list
+  let result = new LinkedList();
+  const recur = (listNode, treeNode) => {
+    if (listNode.value === null) {
+      listNode.value = new LinkedList();
+      listNode.add(treeNode.value);
+    }
+    if (treeNode.left || treeNode.right) listNode.next = new LinkedList();
+    if (treeNode.left !== null) {
+      listNode.next.add(treeNode.left.value);
+      recur(listNode.next, treeNode.left);
+    }
+    if (treeNode.right !== null) {
+      listNode.next.add(treeNode.right.value);
+      recur(listNode.next, treeNode.right);
+    }
+  };
+  return result;
+};
 
 /* checkBalances: implement a function to check if a binary tree
  * is balanced. For the purposes of this question, a balanced
  * tree is defined to be a tree such that the heights of the two
  * subtrees of any node never differ by more than one.
- */
+ */ 
 
 const checkBalances = () => {};
 
