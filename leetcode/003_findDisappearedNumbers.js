@@ -13,12 +13,12 @@
  */
 
 let findDisappearedNumbers = function(nums) {
-    for (const num of nums) {
-        nums[Math.abs(num) - 1] = Math.abs(nums[Math.abs(num) - 1]) * -1;
-    }
-    
-    return nums.reduce((array, num, index) => {
-        if (num > 0) array.push(index + 1);
-        return array;
-    }, []);
+  for (const num of nums) {
+    nums[Math.abs(num) - 1] = Math.abs(nums[Math.abs(num) - 1]) * -1;
+  }
+
+  return nums.reduce((array, num, index) => {
+    if (num > 0) array.push(index + 1);
+    return array;
+  }, []);
 };

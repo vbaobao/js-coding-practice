@@ -16,10 +16,10 @@ let maxProfit = function(prices) {
   let minPrice = null;
   let profit = 0;
   for (const price of prices) {
-      if (minPrice === null || minPrice > price) {
-          minPrice = price;
-      }
-      if (price - minPrice > profit) profit = price - minPrice;
+    if (minPrice === null || minPrice > price) {
+      minPrice = price;
+    }
+    if (price - minPrice > profit) profit = price - minPrice;
   }
   return profit;    
 };

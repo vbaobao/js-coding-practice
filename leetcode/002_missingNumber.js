@@ -10,7 +10,7 @@ let missingNumber = function(nums) {
   let expected = nums.length * (nums.length + 1)/2;
   let sum = 0;
   for (const num of nums) {
-      sum += num;
+    sum += num;
   }
   return expected - sum;
 };

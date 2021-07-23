@@ -9,6 +9,6 @@
 
 let countBits = function(n) {
   return Array(n + 1).fill().map((val,i) => 
-      i.toString(2).replace(/0/g, '').length 
+    i.toString(2).replace(/0/g, '').length 
   )
 };
