@@ -183,7 +183,32 @@ const listOfDepths = (tree) => {
  * subtrees of any node never differ by more than one.
  */ 
 
-const checkBalances = () => {};
+const checkBalances = (root) => {
+  // dfs, track depths
+  // recur
+  // if next node is null, store depth
+  // if depth is not null and > 1, then return checkBalances as false.
+  // if dept is not null and < 1, then continue to recur or if depth is null
+
+  let minDepth = null;
+  let balanced = true;
+
+  const recur = (node, depth) => {
+    if (minDepth === null && (node.left === null || node.right === null)) {
+      minDepth = depth;
+    }
+    if (minDepth + 1 < depth) {
+      balanced = false;
+    } else if (minDepth + 1 >= depth) {
+      if (node.left !== null) recur(node.left, depth + 1);
+      if (node.right !== null) recur(node.right, depth + 1);
+    }
+  };
+
+  recur(root, 0);
+
+  return balanced;
+};
 
 /* validateBST: implement a function to check if a binary tree is
  * a binary search tree.
