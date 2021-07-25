@@ -214,7 +214,31 @@ const checkBalances = (root) => {
  * a binary search tree.
  */
 
-const validateBST = () => {};
+const validateBST = (root) => {
+  // depth first search
+  // left values are always smaller
+  // right values are always larger
+  // recur with a size effect variable which flips to false if the conditions are not met
+  // base case is when next node is null
+
+  let isBST = true;
+  const recur = (node) => {
+    // if node is null, return
+    // if left is smaller and right is larger, recur
+    // else set isBST to false, return
+    if (!node) return;
+    if (node.left.value <= node.value && node.right.value >= node.value) {
+      recur(node.left);
+      recur(node.right);
+    } else {
+      isBST = false;
+      return;
+    }
+  };
+
+  recur(root);
+  return isBST;
+};
 
 /* successor: write an algorithm to find the "next" node
  * (i.e.in-order successor) of a given ndoe in a binary
