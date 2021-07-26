@@ -245,7 +245,9 @@ const validateBST = (root) => {
  * search tree. You may assume that each node has a link to its parent.
  */
 
-const successor = () => {};
+const successor = (node) => {
+  return node.right;
+};
 
 /* buildOrder: you are given a list of projects and a list of dependencies
  * (which is a list of pairs of projects where the second project is
@@ -254,7 +256,30 @@ const successor = () => {};
  * projects to be built. If there is no valid build order, return an error.
  */
 
-const buildOrder = () => {};
+const buildOrder = (projects) => {
+  // build a memo of dependencies
+  // if the dependencies contain the same project being built
+  // then it is not possible
+  let dependencies = {};
+  for (const project of projects) {
+    dependencies[project[0]] = [project[1]];
+  }
+  for (const [key, value] in Object.entries(projects)) {
+    for (const dependency of value) {
+      if (projects[dependency] === key) throw Error();
+      projects[key].push(projects[dependency]);
+    }
+  }
+  let longestNode;
+  let longest = 0;
+  for (const project in projects) {
+    if (projects[project].length > longest) {
+      longestNode = project;
+      longest = projects[project].length;
+    }
+  }
+  return [longestNode, ...projects[longestNode]];
+};
 
 /* firstCommonAncestor: design an algorithm and write code to find the
  * first common ancestor of two nodes in a binary tree. Avoid storing
