@@ -246,7 +246,18 @@ const validateBST = (root) => {
  */
 
 const successor = (node) => {
-  return node.right;
+  let root = node;
+  while (root.parent) {
+    root = root.parent;
+  }
+
+  if (node === root.val || node.right === root.val) {
+    return root.right.left;
+  } else if (node.right.left !== null) {
+    return node.right.left;
+  } else if (node.right.left === null) {
+    return node.right;
+  }
 };
 
 /* buildOrder: you are given a list of projects and a list of dependencies
@@ -283,11 +294,34 @@ const buildOrder = (projects) => {
 
 /* firstCommonAncestor: design an algorithm and write code to find the
  * first common ancestor of two nodes in a binary tree. Avoid storing
- * additional nodes in a dara structure. NOTE: this is not necessarily
+ * additional nodes in a data structure. NOTE: this is not necessarily
  * a binary search tree.
  */
 
-const firstCommonAncestor = () => {};
+const firstCommonAncestor = (n1, n2) => {
+  let root = n1;
+  let runner = n2;
+  if (n1.depth > n2.depth) {
+    while (runner.parent) {
+      while (root.parent) {
+        if (root === runner) return root;
+        root = root.parent;
+      }
+      runner = runner.parent
+    }
+  } else {
+    root = n2;
+    runner = n1;
+    while (runner.parent) {
+      while (root.parent) {
+        if (root === runner) return root;
+        root = root.parent;
+      }
+      runner = runner.parent
+    }
+  }
+  return null;
+};
 
 /* BSTSequence: a binary search tree was created by traversing through
  * an array from left to right and inserting each element. Given a
@@ -295,7 +329,59 @@ const firstCommonAncestor = () => {};
  * that could have led to this tree.
  */
 
-const BSTSequence = () => {};
+const BSTSequence = (root) => {
+  let prefix = [root.val];
+
+  const getSubtree = (node) => {
+    if (node === null) return;
+    let result = [];
+    if (node.right !== null) {
+      let right = getSubtree(node.right);
+      result.push(right.length === 1 ? right[0] : right);
+    }
+    if (node.left !== null) {
+      let left = getSubtree(node.left);
+      result.push(left.length === 1 ? left[0] : left);
+    }
+    return result;
+  };
+
+  const recur = (prefix, sub1, sub2) => {
+    // Prefix is the memo and holds the current combinations
+    // Base case: when the subtrees are empty, then print prefix as a string
+    // Add sub1 to prefix
+    // Recurse with new sub
+    // Add sub2 to prefix
+    // Recurse with new sub
+    if (sub1.length) {
+      let newVal;
+      let copy = [...sub1];
+      if (typeof copy[copy.length - 1] === "Object") {
+        newVal = copy[copy.length - 1].pop();
+        if (copy[copy.length - 1].length === 1) copy[copy.length - 1] = copy[copy.length - 1][0];
+      } else {
+        newVal = copy.pop();
+      }
+      let temp = [...prefix, newVal];
+      recur(prefix, temp, sub2);
+    }
+    if (sub2.length) {
+      let newVal;
+      let copy = [...sub2];
+      if (typeof copy[copy.length - 1] === "Object") {
+        newVal = copy[copy.length - 1].pop();
+        if (copy[copy.length - 1].length === 1) copy[copy.length - 1] = copy[copy.length - 1][0];
+      } else {
+        newVal = copy.pop();
+      }
+      let temp = [...prefix, newVal];
+      recur(prefix, sub1, temp);
+    }
+    if (!sub1.length && !sub2.length) console.log(prefix.join(', '));
+  };
+
+  recur(prefix, getSubtree(root.left), getSubtree(root.right));
+};
 
 /* checkSubtree: T1 and T2 are two very large binary trees, with T1 much
  * bigger than T2. Create an algorithm to determine if T2 is a subtree of
