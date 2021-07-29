@@ -390,7 +390,37 @@ const BSTSequence = (root) => {
  * tree at node n, the two trees would be identical.
  */
 
-const checkSubtree = () => {};
+const checkSubtree = (t1, t2) => {
+  // in t1 find t2 head
+  // if head found, use helper to check if equal
+  // if equal return true
+  // if traversed entire t1 without equal return false
+  let isSubtree = false;
+  const isTreeEqual = (node1, original) => {
+    if (node1 !== original) return false;
+    if (node1 === null && original === null) return;
+    isTreeEqual(node1.left, original.left);
+    isTreeEqual(node1.right, original.right);
+  };
+
+  const dfs = (node, original) => {
+    if (node === null) return;
+    if (node === original) {
+      let areTreesEqual = true;
+      isTreeEqual(node, original);
+      if (areTreesEqual) {
+        isSubtree = true;
+        return;
+      }
+    }
+    dfs(node.left, original);
+    dfs(node.right, original);
+    return;
+  };
+
+  dfs(t1, t2);
+  return isSubtree;
+};
 
 /* randomNode: you are implementing a binary search tee class from scratch
  * which, in addition to insert(), find(), and delete(), has a method
