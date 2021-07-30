@@ -430,7 +430,115 @@ const checkSubtree = (t1, t2) => {
  * methods.
  */
 
-class binarySearchTree {}
+class binarySearchTree {
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
+
+  insert(value) {
+    const recur =  (value, node, prevNode) => {
+      if (value === null) return;
+      if (!node) {
+        this.size++;
+        node = new bstNode(value, prevNode, this.size);
+      } else if (node.value <= value) {
+        recur(value, node.left, node);
+      } else {
+        recur(value, node.right, node);
+      }
+    }
+
+    if (!this.head) {
+      this.size++;
+      this.head = new bstNode(value, null, this.size);
+      return;
+    } else {
+      recur(value, this.head, null);
+    }
+  }
+
+  find(value) {
+    let foundNode = null;
+    const recur =  (value, node) => {
+      if (value === null || !node) return;
+      if (node.value === value) {
+        return foundNode = node;
+      } else if (node.value <= value) {
+        recur(value, node.left);
+      } else {
+        recur(value, node.right);
+      }
+    }
+    recur(value, this.head);
+    return foundNode;
+  }
+
+  delete(value) {
+    let toDelete = find(value);
+    let missingId;
+    if (!toDelete.right && !toDelete.left) {
+      toDelete.parent.right = null;
+      toDelete.parent.left = null;
+    }  else if (!toDelete.right) {
+      toDelete.parent.left === toDelete
+        ? toDelete.parent.left = toDelete.left
+        : toDelete.parent.right = toDelete.left;
+    } else if (!toDelete.left) {
+      toDelete.parent.left === toDelete
+        ? toDelete.parent.left = toDelete.left
+        : toDelete.parent.right = toDelete.left;
+    } else {
+      let minSuccessor = toDelete.right;
+      while (minSuccessor.left) {
+        minSuccessor = minSuccessor.left;
+      }
+      minSuccessor.parent.left = minSuccessor.right;
+      toDelete.parent.left === toDelete
+        ? toDelete.parent.left = minSuccessor
+        : toDelete.parent.right = minSuccessor;
+      missingId = minSuccessor.id;
+      minSuccessor.id = toDelete.id;
+      minSuccessor.left = toDelete.left;
+      minSuccessor.right = toDelete.right;
+    }
+    const findLastIdNode =  (lastId, node) => {
+      if (lastId === null || !node) return;
+      if (node.id === lastId) {
+        return lastNode = node;
+      }
+      recur(lastId, node.left);
+      recur(lastId, node.right);
+    }
+    let lastNode;
+    findLastIdNode(this.size, this.head);
+    lastNode.id = missingId;
+    this.size--;
+  }
+
+  randomNode() {
+    const randomId = Math.ceil(Math.random() * this.size);
+    let foundNode = null;
+    const recur =  (target, node) => {
+      if (target === null || !node) return;
+      if (node.id === target) {
+        return foundNode = node;
+      }
+      recur(target, node.left);
+      recur(target, node.right);
+    }
+    recur(randomId, this.head);
+    return foundNode;
+  }
+}
+
+function bstNode (value, parent = null, id = null) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+  this.parent = parent;
+  this.id = id;
+}
 
 /* pathsWithSum: you are given a binary tree in which each node contains an
  * integer value which might be positive or negative.
