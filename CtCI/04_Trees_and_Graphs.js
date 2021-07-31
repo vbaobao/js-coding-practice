@@ -547,4 +547,29 @@ function bstNode (value, parent = null, id = null) {
  * it must go downwards (traveling only from parent nodes to child nodes.)
  */
 
-const pathsWithSum = () => {};
+const pathsWithSum = (root, value) => {
+  let paths = 0;
+  // depth first search until null
+  // add to count any time nodes sum to specified value
+  // pass down a memo of sums per path
+
+  const recur = (node, sums) => {
+    // if node is null, return
+    // push node + last sums to sums
+    // iterate through sums
+    // if sums[last sum] - iterated value === value, paths++
+    // then recur for each side of the node
+    if (!node) return;
+    let copy = [...sums].push(sums[sums.length - 1] + node.value);
+    let lastVal = copy[.length - 1];
+    if (lastVal === value) paths++;
+    for (const sub of copy) {
+      if (lastVal - sub === value) paths++;
+    }
+    recur(node.left, copy);
+    recur(node.right, copy);
+  };
+
+  recur(root, []);
+  return paths;
+};
