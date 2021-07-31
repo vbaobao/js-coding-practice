@@ -561,7 +561,7 @@ const pathsWithSum = (root, value) => {
     // then recur for each side of the node
     if (!node) return;
     let copy = [...sums].push(sums[sums.length - 1] + node.value);
-    let lastVal = copy[.length - 1];
+    let lastVal = copy[copy.length - 1];
     if (lastVal === value) paths++;
     for (const sub of copy) {
       if (lastVal - sub === value) paths++;
