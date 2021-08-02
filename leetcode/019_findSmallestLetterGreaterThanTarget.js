@@ -13,8 +13,18 @@
  */
 
 let nextGreatestLetter = function(letters, target) {
-  for (const letter of letters) {
-    if (letter > target) return letter;
+  let min = 0;
+  let max = letters.length - 1;
+  let mid;
+  while (min <= max) {
+    mid = min + Math.floor((max - min)/2);
+    if (target < letters[mid] && target >= letters[mid - 1]) {
+        return letters[mid];
+    } else if (target >= letters[mid]) {
+        min = mid + 1;
+    } else {
+        max = mid - 1;
+    }
   }
   return letters[0];
 };
