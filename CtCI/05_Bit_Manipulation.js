@@ -6,7 +6,16 @@
  * will not, for example, have j=3 and i=2, because M could not fully fit between bit 3 and bit 2.
  */
 
-const insertion = () => {};
+const insertion = (N, M, i, j) => {
+  // Make a list of 0 to j, & shift ~(0 << i)
+  // On N, clear position from j to i by N | above num
+  // M shift by remaining bits
+  // return num | shifted M
+  let result = ~(~(0 << j) << j - i) << i;
+  result = N & ~result;
+  let join = M << j - i;
+  return result | join;
+};
 
 /**
  * binaryToString: given a real number between 0 and 1 (e.g. 0.72) that is passed
