@@ -17,6 +17,11 @@
  * 
  * If p is the probability of making a particular shot, for which
  * values of p should you pick one game or the other?
+ * 
+ * Answer: For first shot, if the probability is over 0.5, then game 1. If probability
+ * is lower than that, then game 2. Probability of game one is 0.5, while
+ * game 2, the first shot can be successful or not. The following shots then must
+ * be successful.
  */
 
 /**
