@@ -23,7 +23,10 @@ const insertion = (N, M, i, j) => {
  * represented accurately in binary with at most 32 characters, print "ERROR".
  */
 
-const binaryToString = () => {};
+const binaryToString = (binary) => {
+  let result = binary.toString(2);
+  return result.length > 32 ? 'ERROR' : result;
+};
 
 /**
  * flipBitToWin: you have an integer and you can flip exactly one bit from a 0 to a 1.
