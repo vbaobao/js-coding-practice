@@ -1,7 +1,11 @@
 /**
- * The heavy pill: You have 20 obttles of pills. 19 bottles have 1.0 gram pills
+ * The heavy pill: You have 20 bottles of pills. 19 bottles have 1.0 gram pills
  * but one has pills of weight 1.1 grams. Given a scale that provides an exact
  * measurement, how would you find the heavy bottle? You can only use the scale once.
+ * 
+ * Answer: From each bottle remove a pill matching the bottle number. Predict the total
+ * weight if each pill removed were 1 gram. Subtract the expected from actual weight.
+ * The remaining grams is the bottle number. Each pill of extra weight is 0.1g extra.
  */
 
 /**
