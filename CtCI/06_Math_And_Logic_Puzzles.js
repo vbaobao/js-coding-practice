@@ -30,6 +30,10 @@
  * domino can cover exactly two squares. Can you use the 31 dominos to
  * cover the entire board? Prove your answer (by providing an example or
  * showing why it's impossible.)
+ * 
+ * It is impossible, as there are now 4 rows with odd numbered row or column.
+ * Trying to account for that makes it impossible to fit dominoes in without
+ * leaving one block out.
  */
 
 /**
