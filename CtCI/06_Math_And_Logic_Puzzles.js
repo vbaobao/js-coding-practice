@@ -43,6 +43,12 @@
  * that each ant randomly picks a direction, with either direction being
  * equally likely to be chosen, and that they walk at the same speed.
  * Similarly, find the probability of collision with n ants on an n-vertex polygon.
+ * 
+ * 2/2 * 1/2 * 1/2 = chances of them walking all in ther same direction
+ * 2/2 * 1/2 * 1/2 = chances of two walking in the same direction and one in opposite
+ * No chance of all three collision at the same time, but can still cross.
+ * 
+ * n ants with n sides. P = (1/n)^(n-1)
  */
 
 /**
