@@ -56,6 +56,12 @@
  * unlimited supply of water (but no measuring cups). How would you come up
  * with exactly four quarts of water? Note, that the jugs are oddly shaped,
  * such that filling up exactly "half" of the jug would be impossible.
+ * 5 - 3 = 2 And repeat.
+ * Pour water into the 5 quart jug. Pour 5 quart into 3 quarts
+ * until 3 quarts is full. We now have 2 quarts in the 5 quart.
+ * Empty 3 quart, fill with 2 quart.
+ * Fill 5 quart, pour into 3 quart.
+ * 5 quart now has 4 quarts.
  */
 
 /**
