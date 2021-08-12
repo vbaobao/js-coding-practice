@@ -73,6 +73,13 @@
  * they do not know how many people have blue eyes, although they do
  * know that at least one person does. How many days will it take the
  * blue-eyed people to leave?
+ * 
+ * The book solution doesn't really make sense. Their solution assumes that
+ * if there is no one on the island with blue eyes, then the observing person
+ * the one with blue eyes.
+ * 
+ * But this doesn't work with two people or more. This is because the number
+ * of blue eyed people is not known.
  */
 
 /**
