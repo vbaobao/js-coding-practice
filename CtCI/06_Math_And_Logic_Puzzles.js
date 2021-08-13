@@ -92,6 +92,12 @@
  * ratio of the new generation be?  (Assume that the odds of someone
  * having a boy or girl on any given pregnancy is equal.) Solve this
  * out logically and then write a computer simulation of it.
+ * 
+ * 1 -> G ===> P -> 0.5
+ * 2 -> B-> G ===> P -> 0.5 * 0.5 = 0.25
+ * 3 -> B -> B -> G ===> P -> 0.5 * 0.5 * 0.5 = 0.125
+ * 
+ * Logarithmic velocity of probability
  */
 
 /**
