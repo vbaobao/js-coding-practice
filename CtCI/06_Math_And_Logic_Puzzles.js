@@ -106,6 +106,12 @@
  * dropped from any floor below, it will not break. You're given
  * two eggs. Find N, while minimizing the number of drops for the
  * worst case.
+ * 
+ * Drop both eggs. One egg at floor 1 and another at floor 2.
+ * each egg increments by 2 floors until either the first or second one breaks.
+ * If the first one breaks, no need to drop the second egg.
+ * At worse the eggs will need to be dropped N/2 times if they only break at
+ * the maximum floor.
  */
 
 /**
