@@ -16,11 +16,21 @@
  */
 let twoSum = function(nums, target) {
   // Brute force
+  // if (!nums.length) return [];
+  // for (let i = 0; i < nums.length; i++) {
+  //   for (let j = 0; j < nums.length; j++) {
+  //     if (i !== j && nums[i] + nums[j] === target ) return [i, j];
+  //   }
+  // }
+  // return [];
+
+  //Using a hash map
   if (!nums.length) return [];
+  let map = {};
   for (let i = 0; i < nums.length; i++) {
-    for (let j = 0; j < nums.length; j++) {
-      if (i !== j && nums[i] + nums[j] === target ) return [i, j];
-    }
+    let another = target - nums[i];
+    if (another in map) return [map[another], i];  
+    map[nums[i]] = i;
   }
   return [];
 };
