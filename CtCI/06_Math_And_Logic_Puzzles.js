@@ -122,6 +122,9 @@
  * that on each pass i, the man toggles every ith locker. After his 100th
  * pass in the hallway, in which he toggles only locker #100, how many
  * lockers are open.
+ * 
+ * Numbers with even factors will be closed, and odd factor will be open.
+ * Square root of x will be the number of open lockers.
  */
 
 /**
