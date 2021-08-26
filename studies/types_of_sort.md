@@ -46,6 +46,26 @@ One thing that can be taken advantage of when using an array in a heap structure
 
 In order to do this type of sort we need a helper function heapify to resort a heap that is partially out of order. And a build min/max heap function.
 
+```javascript
+// Use heapify on the smaller of first half of an array to heapify the array
+// When done, the sort can be done by switching the top value (max) with the bottom
+const heapify = (array, len, i) => {
+  let largest = i;
+  let left = 2 * i + 1;
+  let right = 2 * 1 + 2;
+
+  if (left < len && array[l] > array[largest]) largest = left;
+  if (right < len && array[right] > array[largest]) largest = right;
+  if (largest != i) {
+    let temp = array[i];
+    array[i] = array[largest];
+    array[largest] = temp;
+
+    heapify(array, len, largest);
+  }
+};
+```
+
 To create a sorted array, first a heap is built from the array. Switch the root with the last index. Pop the root and assign it to the final sorted array. Then heapify the heap again, and repeat until the entire sorted array is built.
 
 ## Quick Sort
