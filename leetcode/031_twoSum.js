@@ -25,12 +25,22 @@ let twoSum = function(nums, target) {
   // return [];
 
   //Using a hash map
-  if (!nums.length) return [];
-  let map = {};
-  for (let i = 0; i < nums.length; i++) {
-    let another = target - nums[i];
-    if (another in map) return [map[another], i];  
-    map[nums[i]] = i;
+  // if (!nums.length) return [];
+  // let map = {};
+  // for (let i = 0; i < nums.length; i++) {
+  //   let another = target - nums[i];
+  //   if (another in map) return [map[another], i];  
+  //   map[nums[i]] = i;
+  // }
+  // return [];
+
+  // improving the hash map method more (runtime is about the same)
+  let hash = {};
+  for (const [i, val] of Object.entries(nums)) {
+    if (hash[target - val]) {
+      return [hash[target - val], i];
+    } else {
+      hash[val] = i;
+    }
   }
-  return [];
 };
