@@ -5,9 +5,7 @@
  */
 
 const exist = function(board, word) {
-  let canRun = false;
   if (word.length === 0) return true;
-  
   // iterate through the cells as possible starting points
   // for each value recursively test possible routes, and backtracking if route is not viable.
   // backtracking function takes row, col, remaining chars
@@ -47,6 +45,6 @@ const exist = function(board, word) {
       if (checkRoute(row, col, word)) return true;
     }
   }
-  
+
   return false;
 };
