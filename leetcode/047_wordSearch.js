@@ -7,10 +7,9 @@
 const exist = function(board, word) {
   let canRun = false;
   if (word.length === 0) return true;
-  let seen = new Array(board.length).fill(0).map(e => new Array(board[0].length));
+  
   // iterate through the cells as possible starting points
   // for each value recursively test possible routes, and backtracking if route is not viable.
-  
   // backtracking function takes row, col, remaining chars
   // checks if current matches the char, pop char if match
   // if yes and char is the last char then canRun = true
@@ -28,21 +27,26 @@ const exist = function(board, word) {
     if (col + 1 < board[0].length) pos.push([row, col + 1]);
     return pos;
   };
-  const checkRoute = (row, col, string, tracker) => {
-    if (board[row][col] !== string[string.length - 1] || tracker[row][col]) return;
-    string = string.substring(0, string.length - 1);
-    if (string.length === 0) return canRun = true;
-    let newTracker = tracker.map(row => [... row]);
-    newTracker[row][col] = true;
+  
+  const checkRoute = (row, col, string) => {
+    let lastindex = string.length - 1;
+    let char = string[lastindex];
+    if (board[row][col] !== char || !board[row][col]) return false;
+    string = string.substring(0, lastindex);
+    if (string.length === 0) return true;
+    board[row][col] = false;
     let pos = getPos(row, col);
     for (const coord of pos) {
-      checkRoute(coord[0], coord[1], string, newTracker);
+      if (checkRoute(coord[0], coord[1], string)) return true;
     }
+    board[row][col] = char;
   };
+  
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[0].length; col++) {
-      checkRoute(row, col, word, seen);
+      if (checkRoute(row, col, word)) return true;
     }
   }
-  return canRun;
+  
+  return false;
 };
