@@ -3,7 +3,8 @@
  * @param {string} word
  * @return {boolean}
  */
- var exist = function(board, word) {
+
+const exist = function(board, word) {
   let canRun = false;
   if (word.length === 0) return true;
   let seen = new Array(board.length).fill(0).map(e => new Array(board[0].length));
