@@ -13,10 +13,14 @@ const minAreaRect = function(points) {
 
   let minArea = 0;  
   // iterate through the array of points to find diagonal and matching points
-  for (const [x, y] of points) {
-    for (const [x1, y1] of points) {
-      let l = Math.abs(x1 - x);
-      let h = Math.abs(y1 - y);
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i + 1; j < points.length; j++) {
+      let x = points[i][0];
+      let y = points[i][1];
+      let x1 = points[j][0];
+      let y1 = points[j][1];
+      let l = Math.abs(x - x1);
+      let h = Math.abs(y - y1);
       if (l !== 0 && h !== 0 && hash[x][y1] && hash[x1][y]) minArea = minArea !== 0 ? Math.min(l * h, minArea) : l * h;
     }
   }
